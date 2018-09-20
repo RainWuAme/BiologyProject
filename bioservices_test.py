@@ -17,4 +17,20 @@ print(data)
 # e.g. protein name "YER030W" in Saccharomyces cerevisiae.
 # =============================================================================
 
+#%% Rain180920 UniProt data
+from bioservices import UniProt
+import pandas as pd
 
+index = pd.ExcelFile('individual hits analysis_yeast_1.xlsx')
+dfs = pd.read_excel(index, sheet_name=1)
+print(dfs)
+
+u = UniProt()
+data = u.search("YCL030C Saccharomyces cerevisiae", frmt="tab", limit=20,columns="entry name,length,\
+                id, genes, organism")
+print(data)
+
+# =============================================================================
+# So here we need to enter, first, the gene name e.g. "YCL030C" then append the
+# word "Saccharomyces cerevisiae" to get the result we want.
+# =============================================================================
