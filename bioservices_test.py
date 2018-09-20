@@ -22,7 +22,7 @@ from bioservices import UniProt
 import pandas as pd
 
 index = pd.ExcelFile('individual hits analysis_yeast_1.xlsx')
-dfs = pd.read_excel(index, sheet_name=1)
+dfs = pd.read_excel(index, sheet_name=0)
 print(dfs)
 
 u = UniProt()
