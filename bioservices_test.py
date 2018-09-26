@@ -22,13 +22,15 @@ from bioservices import UniProt
 import pandas as pd
 
 index = pd.ExcelFile('individual hits analysis_yeast_1.xlsx')
-dfs = pd.read_excel(index, sheet_name=0)
+dfs = pd.read_excel(index, sheet_name=1)
 print(dfs)
+ele = dfs['Histatin-5_unique']
 
-u = UniProt()
-data = u.search("YCL030C Saccharomyces cerevisiae", frmt="tab", limit=20,columns="entry name,length,\
+for i in ele[0:9]:
+    data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
+                    columns="entry name,length,\
                 id, genes, organism")
-print(data)
+    print(data)
 
 # =============================================================================
 # So here we need to enter, first, the gene name e.g. "YCL030C" then append the
