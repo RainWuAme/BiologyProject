@@ -26,7 +26,7 @@ dfs = pd.read_excel(index, sheet_name=1)
 print(dfs)
 ele = dfs['Histatin-5_unique']
 
-for i in ele[0:9]:
+for i in ele[0:19]:
     data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
                     columns="entry name,length,\
                 id, genes, organism")
@@ -36,3 +36,20 @@ for i in ele[0:9]:
 # So here we need to enter, first, the gene name e.g. "YCL030C" then append the
 # word "Saccharomyces cerevisiae" to get the result we want.
 # =============================================================================
+#%% Pramod180927 UniProt data
+from bioservices import UniProt
+import pandas as pd
+
+index = pd.ExcelFile('individual hits analysis_yeast_1.xlsx')
+dfs = pd.read_excel(index, sheet_name=1)
+#print(dfs)
+ele = dfs['Histatin-5_unique']
+data = []
+for i in ele[0:]:
+    Result = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
+                    columns="entry name,length,\
+                id, genes, organism")
+#    data = data.extend[]
+Result.to_csv('out.csv')
+    
+#    print(data)
