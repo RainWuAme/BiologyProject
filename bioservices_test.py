@@ -63,23 +63,25 @@ import numpy as np
 u = UniProt(verbose=False)
 index = pd.ExcelFile('individual hits analysis_yeast_1.xlsx')
 dfs = pd.read_excel(index, sheet_name=1)
-print(dfs)
+#print(dfs)
 ele = dfs['Histatin-5_unique']
 
 for i in ele[0:19]:
     data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
-                    columns="entry name,length, id, genes, organism")
-    print(data)
+                    columns="entry name,length, id, genes, organism,comment(FUNCTION)")
+#    print(data)
 
 #data.to_csv("test_rain",columns=['entry name','length','id','genes','organism'])
 # Change the data to list
 #test = data.split('\n')
 test = re.split('\n|\t',data)
 del test[-1]
-test_resh = np.reshape(test,[2,5])
+test_resh = np.reshape(test,[2,int(len(test)/2)])
 
-data_list = pd.DataFrame(test_resh,columns=['entry name','length','id','genes','organism'])
+data_list = pd.DataFrame(test_resh,columns=['entry name','length','id',\
+                                            'genes','organism','function'])
 data_list.to_csv("test_rain.csv")
+print('Done!')
 # =============================================================================
 # So here we need to enter, first, the gene name e.g. "YCL030C" then append the
 # word "Saccharomyces cerevisiae" to get the result we want.
@@ -99,7 +101,7 @@ ele = dfs['Histatin-5_unique']
 
 for i in ele[0:19]:
     data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
-                    columns="entry name,length, id, genes, organism")
+                    columns="entry name,length, id, genes, organism,")
 #   print(data)
 
 #data.to_csv("test_rain",columns=['entry name','length','id','genes','organism'])
