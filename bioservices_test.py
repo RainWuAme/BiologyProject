@@ -17,7 +17,7 @@ print(data)
 # e.g. protein name "YER030W" in Saccharomyces cerevisiae.
 # =============================================================================
 
-#%% Rain180920 UniProt data
+#%% Rain181004 UniProt data
 from bioservices import UniProt
 import pandas as pd
 import re
