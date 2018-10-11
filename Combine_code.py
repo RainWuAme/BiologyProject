@@ -25,9 +25,10 @@ data_list1 = []
 count = [6,7,8,9,10,11]
 
 for i in range(0,a):
+	data_list1.append(ele[i])
     for j in count:
         data_list1.append(total_data[i][j])
     
-data_list2 = np.reshape(data_list1,[a,6])
-data_list3 = pd.DataFrame(data_list2, columns=['entry name','length','id','genes','organism',"function"])
+data_list2 = np.reshape(data_list1,[a,7])
+data_list3 = pd.DataFrame(data_list2, columns=['genes name','entry name','length','id','genes','organism',"function"])
 data_list3.to_csv("test_nick.csv")
