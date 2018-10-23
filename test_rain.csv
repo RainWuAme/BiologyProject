@@ -1,3 +1,0 @@
-,entry name,length,id,genes,organism,function
-0,Entry name,Length,Entry,Gene names,Organism,Function [CC]
-1,BFR2_YEAST,534,Q06631,BFR2 YDR299W,Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast),"FUNCTION: Involved in endoplasmic reticulum to Golgi transport. Involved in a protein-transport step blocked by brefeldin A, which disrupts the Golgi apparatus and its incoming protein flux. May also be involved for mass growth or cell proliferation. {ECO:0000269|PubMed:9472076}."
