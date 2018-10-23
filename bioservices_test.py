@@ -51,6 +51,14 @@ print('Done!')
 # =============================================================================
 #%% Pramod180927 UniProt data
 
+test = re.split('\n|\t',data)
+del test[-1]
+test_resh = np.reshape(test,[2,5])
+
+data_list = pd.DataFrame(test_resh,columns=['entry name','length','id','genes','organism'])
+data_list.to_csv("test_rain.csv")
+
+#%% Pramod181023
 from bioservices import UniProt
 import pandas as pd
 import re
@@ -64,18 +72,5 @@ ele = dfs['Histatin-5_unique']
 
 for i in ele[0:19]:
     data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
-                    columns="entry name,length, id, genes, organism,")
-#   print(data)
-
-#data.to_csv("test_rain",columns=['entry name','length','id','genes','organism'])
-# Change the data to list
-#test = data.split('\n')
-test = re.split('\n|\t',data)
-del test[-1]
-test_resh = np.reshape(test,[2,5])
-
-data_list = pd.DataFrame(test_resh,columns=['entry name','length','id','genes','organism'])
-data_list.to_csv("test_rain.csv")
-
-
-
+                    columns="entry name,length, id, genes, organism,comment(FUNCTION), citation, comment(SUBCELLULAR LOCATION)")
+    print(data)
