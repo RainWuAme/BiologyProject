@@ -92,7 +92,8 @@ test = re.split('\n|\t',data)
 del test[-1]
 test_resh = np.reshape(test,[2,5])
 
-data_list = pd.DataFrame(test_resh,columns=['entry name','length','id','genes','organism'])
+data_list = pd.DataFrame(test_resh,columns=['entry name','length','id',\
+                                            'genes','organism'])
 data_list.to_csv("test_rain.csv")
 
 #%% Pramod181023
@@ -107,7 +108,65 @@ dfs = pd.read_excel(index, sheet_name=1)
 #print(dfs)
 ele = dfs['Histatin-5_unique']
 
-for i in ele[0:19]:
+for i in ele[0:2]:
+#    data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
+#                    columns="entry name,length, id, genes, organism,\
+#                    comment(FUNCTION), citation, comment(SUBCELLULAR LOCATION)")
     data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
-                    columns="entry name,length, id, genes, organism,comment(FUNCTION), citation, comment(SUBCELLULAR LOCATION)")
+                    columns="citation")
     print(data)
+
+import re
+pubmed = re.findall('\d+', data)
+
+hyperlink = "https://www.ncbi.nlm.nih.gov/pubmed/"
+
+pubmed_hyperlink = [hyperlink + x for x in pubmed]
+print(pubmed_hyperlink)
+#%% Combine the previous list with this new hyperlink Pramod181029
+
+from bioservices import UniProt
+import pandas as pd
+import re
+import numpy as np
+
+u = UniProt(verbose=False)
+index = pd.ExcelFile('individual hits analysis_yeast_1.xlsx')
+dfs = pd.read_excel(index, sheet_name=1)
+#print(dfs)
+ele = dfs['Histatin-5_unique']
+data_list = []
+
+for i in ele[0:2]:
+    data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
+                    columns="entry name,length, id, genes, organism,\
+                    citation")
+#    data = u.search(i+" Saccharomyces cerevisiae", frmt="tab", limit=1,\
+#                    columns="citation")
+    data_list.append(data)
+    print(data_list)
+
+#import re
+pubmed = []
+for i in range(len(data_list)):
+    temp = re.findall('\d+', data_list[i])
+    pubmed.append(temp)
+
+hyperlink = "https://www.ncbi.nlm.nih.gov/pubmed/"
+
+pubmed_hyperlink = []
+temp = []
+for x in range(len(pubmed)):
+    temp = [hyperlink + i for i in pubmed[x]]
+    pubmed_hyperlink.append(temp)
+
+test = re.split('\n|\t',data_list)
+del test[-1]
+test[-1] = np.array(pubmed_hyperlink)
+test_resh = np.reshape(test,[2,int(len(test)/2)])
+
+data_list = pd.DataFrame(test_resh,columns=['entry name','length','id',\
+                                            'genes','organism','citatoin'])
+data_list.to_csv("test_Pramod.csv")
+print('Done!')
+  
